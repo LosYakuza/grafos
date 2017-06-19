@@ -97,10 +97,12 @@ public class GrafoGenerator {
 	public static GrafoNDNP desdeArchivo(File f) throws FileNotFoundException{
 		Scanner s = new Scanner(f);
 		int N = s.nextInt();
+		int CA = s.nextInt();
 		GrafoNDNP g = new GrafoNDNP(N);
 		s.nextLine();
-		while(s.hasNextLine()){
+		while(CA>0){
 			g.conenct(s.nextInt(), s.nextInt());
+			CA--;
 		}
 		s.close();
 		return g;

@@ -25,6 +25,7 @@ public class PruebaGrafo {
 			Assert.assertEquals(6,g.getGrade(i));
 		}
 		g.aArchivo(new File("9-6reg"));
+		regularLoad();
 	}
 	
 	@Test
@@ -39,5 +40,13 @@ public class PruebaGrafo {
 	public void npartito() {
 		System.out.println("npartito");
 		GrafoNDNP g = GrafoGenerator.npartitio(6, 3);
+	}
+	
+	
+	public void regularLoad() throws IOException {
+		GrafoNDNP g = GrafoGenerator.desdeArchivo(new File("9-6reg"));
+		for(int i=0;i<9;i++){
+			Assert.assertEquals(6,g.getGrade(i));
+		}
 	}
 }
