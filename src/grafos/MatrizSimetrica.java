@@ -1,3 +1,4 @@
+package grafos;
 public class MatrizSimetrica {
 
 	private int[] mat;

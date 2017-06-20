@@ -6,6 +6,9 @@ import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Test;
 
+import grafos.GrafoGenerator;
+import grafos.GrafoNDNP;
+
 public class PruebaGrafo {
 
 	@Test

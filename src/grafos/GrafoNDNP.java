@@ -1,3 +1,4 @@
+package grafos;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -139,12 +140,35 @@ public class GrafoNDNP extends MatrizSimetrica {
 		return min + (int) Math.round(Math.random()*(max-min));
 	}
 
+	/**
+	 * 
+	 * @param n
+	 * @param maxC
+	 * @return genero color nuevo
+	 */
+	private boolean colorear(int n, int maxC){
+		int sColor = 0;
+		for(int i=1;sColor == 0 && i<=maxC;i++){ //busco color disponible
+			sColor=i;
+			for(int j=0;j<getSize();j++){
+				if(n!=j && estaConectado(n, j) && i == colores[j])
+					sColor=0;
+			}
+		}
+		if(sColor==0){
+			colores[n] = maxC+1;
+			return true;
+		}else{
+			colores[n]=sColor;
+			return false;
+		}
+	}
+	
 	public int colorearSecuencialAleatorio() {
 		limpiarColores();
 		int c =0;
 		int act;
 		int maxC=1;
-		int sColor;
 		
 		while(c!=getSize()){
 			act = getRnd(0, getSize()-1);
@@ -153,19 +177,97 @@ public class GrafoNDNP extends MatrizSimetrica {
 				if(act>=getSize())
 					act=0;
 			}
+			if(colorear(act, maxC)){
+				maxC++;
+			}
 			c++;
-			sColor = 0;
-			for(int i=1;sColor ==0 && i<=maxC;i++){ //busco color disponible
-				sColor=i;
-				for(int j=0;j<getSize();j++){
-					if(act!=j && estaConectado(act, j) && i == colores[j])
-						sColor=0;
+			
+		}
+		return maxC;
+	}
+
+	private int [] getGrados(){
+		int [] grados = new int[getSize()];
+		for(int i =0;i<getSize();i++){
+			grados[i]=getGrade(i);
+		}
+		return grados;
+	}
+	
+	public int colorearWP(){
+		int maxC=1;
+		int c =0;
+		int [] grados = getGrados();
+		
+		int act; //actual grado maximo
+		int lMax = -1; //ultimo maximo
+		int maxG = 0; // maximo de busqueda actual
+		int pos =0; // posicion de maximo actual
+		
+		while(c!=getSize()){
+			act = getRnd(0, getSize()-1); // empieza desde cualquier punto
+			maxG = -1;
+			for(int i=0; i<getSize();i++){ // busca grado maximo
+				if(colores[act]==0){
+					if(grados[act]==lMax){
+						pos = act;
+						maxG = lMax;
+						break;
+					}
+					if(grados[act]>maxG){
+						maxG=grados[act];
+						pos = act;
+					}
 				}
+				act ++;
+				if(act>=getSize())
+					act=0;
 			}
-			if(sColor==0){
-				sColor = ++maxC;
+			if(colorear(pos, maxC)){
+				maxC++;
 			}
-			colores[act]=sColor;
+			lMax = maxG; // setea maximo grado
+			c++;
+			
+		}
+		return maxC;
+	}
+	
+	public int colorearMatula(){
+		int maxC=1;
+		int c =0;
+		int [] grados = getGrados();
+		
+		int act; //actual grado maximo
+		int lMax = -1; //ultimo maximo
+		int maxG = -1; // maximo de busqueda actual
+		int pos =0; // posicion de maximo actual
+		
+		while(c!=getSize()){
+			act = getRnd(0, getSize()-1); // empieza desde cualquier punto
+			maxG = -1;
+			for(int i=0; i<getSize();i++){ // busca grado maximo
+				if(colores[act]==0){
+					if(grados[act]==lMax){
+						pos = act;
+						maxG = lMax;
+						break;
+					}
+					if(grados[act]<maxG || maxG==-1){
+						maxG=grados[act];
+						pos = act;
+					}
+				}
+				act ++;
+				if(act>=getSize())
+					act=0;
+			}
+			if(colorear(pos, maxC)){
+				maxC++;
+			}
+			lMax = maxG; // setea maximo grado
+			c++;
+			
 		}
 		return maxC;
 	}
