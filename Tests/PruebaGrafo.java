@@ -10,9 +10,7 @@ public class PruebaGrafo {
 
 	@Test
 	public void test() throws IOException {
-		System.out.println("ProbArista");
 		System.out.println(GrafoGenerator.probArista(4, 70).toString());
-		System.out.println("Adyacencia");
 		GrafoNDNP g = GrafoGenerator.porcAdyacencia(10, 50);
 		g.aArchivo(new File("50por"));
 		
@@ -38,7 +36,6 @@ public class PruebaGrafo {
 	
 	@Test
 	public void npartito() {
-		System.out.println("npartito");
 		GrafoNDNP g = GrafoGenerator.npartitio(6, 3);
 	}
 	

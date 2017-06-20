@@ -9,7 +9,7 @@ public class GrafoGenerator {
 		for (int i = 0; i < N; i++) {
 			for (int j = i + 1; j < N; j++) {
 				if (Math.random() < prob / 100) {
-					g.conenct(i, j);
+					g.conectar(i, j);
 				}
 			}
 		}
@@ -29,7 +29,7 @@ public class GrafoGenerator {
 		while (conexiones > 0) {
 			int y = (int) Math.round(Math.random() * (N - 2));
 			int x = (1 + y) + (int) Math.round(Math.random() * (N - 2 - y));
-			while (connect == g.isConencted(x, y)) {
+			while (connect == g.estaConectado(x, y)) {
 				x++;
 				if (x >= N - 1) {
 					y++;
@@ -55,9 +55,9 @@ public class GrafoGenerator {
 			for(int n=0;n<N;n++){ // recorre nodos uniendo
 				if(g.getGrade(n)<grado){
 					if(n+step >= N){
-						g.conenct(n, n+step-N);
+						g.conectar(n, n+step-N);
 					}else{
-						g.conenct(n, n+step);
+						g.conectar(n, n+step);
 					}
 				}
 			}
@@ -86,7 +86,7 @@ public class GrafoGenerator {
 		for(i=0;i<N-1;i++){
 			for(j=i+1;j<N;j++){
 				if(grupos[i]!=grupos[j]){
-					g.conenct(i, j);
+					g.conectar(i, j);
 				}
 			}
 		}
@@ -101,7 +101,7 @@ public class GrafoGenerator {
 		GrafoNDNP g = new GrafoNDNP(N);
 		s.nextLine();
 		while(CA>0){
-			g.conenct(s.nextInt(), s.nextInt());
+			g.conectar(s.nextInt(), s.nextInt());
 			CA--;
 		}
 		s.close();
