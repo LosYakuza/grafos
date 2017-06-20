@@ -23,7 +23,7 @@ public class PruebaGrafo {
 	public void regular() throws IOException {
 		GrafoNDNP g = GrafoGenerator.regular(9, 6);
 		for(int i=0;i<9;i++){
-			Assert.assertEquals(6,g.getGrade(i));
+			Assert.assertEquals(6,g.getGrado(i));
 		}
 		g.aArchivo(new File("9-6reg"));
 		regularLoad();
@@ -33,7 +33,7 @@ public class PruebaGrafo {
 	public void regularporc() {
 		GrafoNDNP g = GrafoGenerator.regularPorcAdyacencia(1000,  50);
 		for(int i=0;i<9;i++){
-			Assert.assertEquals(500,g.getGrade(i));
+			Assert.assertEquals(500,g.getGrado(i));
 		}
 	}
 	
@@ -46,7 +46,7 @@ public class PruebaGrafo {
 	public void regularLoad() throws IOException {
 		GrafoNDNP g = GrafoGenerator.desdeArchivo(new File("9-6reg"));
 		for(int i=0;i<9;i++){
-			Assert.assertEquals(6,g.getGrade(i));
+			Assert.assertEquals(6,g.getGrado(i));
 		}
 	}
 }

@@ -54,7 +54,7 @@ public class GrafoGenerator {
 		}
 		for(int step=1;step<grado;step++){ // ejecuta hasta llegar al grado
 			for(int n=0;n<N;n++){ // recorre nodos uniendo
-				if(g.getGrade(n)<grado){
+				if(g.getGrado(n)<grado){
 					if(n+step >= N){
 						g.conectar(n, n+step-N);
 					}else{

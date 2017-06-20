@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 public class GrafoNDNP extends MatrizSimetrica {
 
 	private int[] colores;
+	private int [] grados;
 
 	public GrafoNDNP(int nodos) {
 		super(nodos);
@@ -22,12 +23,11 @@ public class GrafoNDNP extends MatrizSimetrica {
 		return this.get(nodo1, nodo2) != 0;
 	}
 
-	public int getGrade(int n) {
-		int c = 0;
-		for (int i = 0; i < this.getSize(); i++)
-			if (n != i && estaConectado(n, i))
-				c++;
-		return c;
+	public int getGrado(int n) {
+		if(grados == null){
+			setGrados();
+		}
+		return grados[n];
 	}
 
 	public int getCA() {
@@ -78,7 +78,7 @@ public class GrafoNDNP extends MatrizSimetrica {
 		int gm = -1;
 		int gmin = n;
 		for (int i = 0; i < n; i++) {
-			int g = getGrade(i);
+			int g = getGrado(i);
 			if (g > gm)
 				gm = g;
 			if (g < gmin)
@@ -103,7 +103,7 @@ public class GrafoNDNP extends MatrizSimetrica {
 		int gm = -1;
 		int gmin = n;
 		for (int i = 0; i < n; i++) {
-			int g = getGrade(i);
+			int g = getGrado(i);
 			if (g > gm)
 				gm = g;
 			if (g < gmin)
@@ -186,19 +186,24 @@ public class GrafoNDNP extends MatrizSimetrica {
 		return maxC;
 	}
 
-	private int [] getGrados(){
-		int [] grados = new int[getSize()];
-		for(int i =0;i<getSize();i++){
-			grados[i]=getGrade(i);
+	public void setGrados(){
+		grados = new int[getSize()];
+		for(int n =0;n<getSize();n++){
+			int c =0;
+			for(int i =0; i<this.getSize();i++)
+				if(n!=i && estaConectado(n, i))
+					c++;
+			grados[n]=c;
 		}
-		return grados;
 	}
 	
 	public int colorearWP(){
 		int maxC=1;
 		int c =0;
-		int [] grados = getGrados();
-		
+		if(grados == null){
+			setGrados();
+		}
+		this.limpiarColores();
 		int act; //actual grado maximo
 		int lMax = -1; //ultimo maximo
 		int maxG = 0; // maximo de busqueda actual
@@ -236,8 +241,10 @@ public class GrafoNDNP extends MatrizSimetrica {
 	public int colorearMatula(){
 		int maxC=1;
 		int c =0;
-		int [] grados = getGrados();
-		
+		if(grados == null){
+			setGrados();
+		}
+		this.limpiarColores();
 		int act; //actual grado maximo
 		int lMax = -1; //ultimo maximo
 		int maxG = -1; // maximo de busqueda actual
