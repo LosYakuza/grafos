@@ -107,4 +107,18 @@ public class GrafoGenerator {
 		s.close();
 		return g;
 	}
+	
+	public static GrafoNDNP desdeArchivo(File f, File colores) throws FileNotFoundException{
+		GrafoNDNP g = desdeArchivo(f);
+		Scanner s = new Scanner(colores);
+		s.nextLine();
+		int n = g.getSize();
+		while(n>0){
+			g.setColor(s.nextInt(), s.nextInt());
+			n--;
+		}
+		s.close();
+		return g;
+	}
+	
 }

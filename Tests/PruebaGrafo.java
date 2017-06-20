@@ -30,9 +30,9 @@ public class PruebaGrafo {
 	
 	@Test
 	public void regularporc() {
-		GrafoNDNP g = GrafoGenerator.regularPorcAdyacencia(9, 50);
+		GrafoNDNP g = GrafoGenerator.regularPorcAdyacencia(1000,  50);
 		for(int i=0;i<9;i++){
-			Assert.assertEquals(4,g.getGrade(i));
+			Assert.assertEquals(500,g.getGrade(i));
 		}
 	}
 	
