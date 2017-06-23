@@ -11,10 +11,11 @@ public class MulticoreEject extends Thread{
 	
 	private String file;
 	private GrafoNDNP g;
-	
-	public MulticoreEject(GrafoNDNP g, String name) {
+	private int corridas;
+	public MulticoreEject(GrafoNDNP g, String name, int corridas) {
 		this.g = g.clone();
 		this.file = name;
+		this.corridas = corridas;
 	}
 	
 	
@@ -26,6 +27,7 @@ public class MulticoreEject extends Thread{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.err.println("Finalizado "+file);
 		Main.finalizo(this);
 	}
 	
@@ -39,7 +41,7 @@ public class MulticoreEject extends Thread{
 		int minSecuecial=0;
 		int minWP=0;
 		long startTime = System.currentTimeMillis();
-		for(int i=0;i<Main.CORRIDAS;i++){
+		for(int i=0;i<corridas;i++){
 			int colores = g.colorearSecuencialAleatorio();
 			if(colores<minSecuecial || i==0){
 				minSecuecial = colores;
@@ -57,22 +59,30 @@ public class MulticoreEject extends Thread{
 				minWP = colores;
 				rminWP= i;
 			}
-			if(i!=0 && i % 100 == 0){
-				System.out.println("("+file+")Tiempo estimado ("+i+"/"+Main.CORRIDAS+"): "+
-			((((System.currentTimeMillis() - startTime)/i)*(Main.CORRIDAS-i))/60000)+"mins");
+			if(i== 100){
+				System.out.println("("+file+")Tiempo estimado ("+i+"/"+corridas+"): "+
+			((((System.currentTimeMillis() - startTime)/i)*(corridas-i))/60000)+"mins");
 			}
 		}
 
+		/* informar en consola resultado
 		System.out.println("Secuencial aleatorio \n\tMinimo: "+minSecuecial+"\n\tCorrida: "+rminSecuecial);
 		System.out.println("Matula \n\tMinimo: "+minMatula+"\n\tCorrida: "+rminMatula);
 		System.out.println("Welsh-Powell \n\tMinimo: "+minWP+"\n\tCorrida: "+rminWP);
+		*/
 		
+		int offset = 0;
+		String[] sp = file.split("-");
+		if(sp.length>1){
+			offset = Integer.valueOf(sp[1])*corridas;
+		}
+		// guarda resultado en archivo
 		BufferedWriter writer = new BufferedWriter(new FileWriter(new File(file)));
-		writer.write("Secuencial aleatorio \n\tMinimo: "+minSecuecial+"\n\tCorrida: "+rminSecuecial);
+		writer.write("Secuencial aleatorio \n\tMinimo: "+minSecuecial+"\n\tCorrida: "+(rminSecuecial+offset));
 		writer.newLine();
-		writer.write("Matula \n\tMinimo: "+minMatula+"\n\tCorrida: "+rminMatula);
+		writer.write("Matula \n\tMinimo: "+minMatula+"\n\tCorrida: "+(rminMatula+offset));
 		writer.newLine();
-		writer.write("Welsh-Powell \n\tMinimo: "+minWP+"\n\tCorrida: "+rminWP);
+		writer.write("Welsh-Powell \n\tMinimo: "+minWP+"\n\tCorrida: "+(rminWP+offset));
 		writer.close();
 	}
 }
