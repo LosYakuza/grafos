@@ -1,23 +1,20 @@
 package tp;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import grafos.GrafoGenerator;
-import grafos.GrafoNDNP;
-import grafos.ProbadorColores;
+
 
 public class Main {
 
 	public static int CORRIDAS = 10000;
 	public static int RUNNING = 0;
+	private static ArrayList<MulticoreEject> tareas = new ArrayList<>();
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
-		ArrayList<MulticoreEject> tareas = new ArrayList<>();
+		
 		int processors = Runtime.getRuntime().availableProcessors();
 		processors = processors -1; // dejame usar la pc un toque
 		System.out.println("Procesadores disponibles: "+processors);
@@ -28,24 +25,26 @@ public class Main {
 		tareas.add( new MulticoreEject(GrafoGenerator.regularPorcAdyacencia(1000, 75), "R100075"));
 		
 		while(!tareas.isEmpty()){
-			while(RUNNING< processors){
-				Iterator<MulticoreEject> it = tareas.iterator();
-				while(it.hasNext()){
-					MulticoreEject p = it.next();
-					if(p.getState()==Thread.State.NEW){
-						RUNNING++;
-						p.start();
-					}else{
-						if(p.getState()==Thread.State.TERMINATED){
-							tareas.remove(p);
+			while(RUNNING< processors && !tareas.isEmpty()){
+				try{
+					Iterator<MulticoreEject> it = tareas.iterator();
+					while(it.hasNext() && RUNNING< processors){
+						MulticoreEject p = it.next();
+						if(p.getState()==Thread.State.NEW){
+							RUNNING++;
+							p.start();
 						}
 					}
-				}
+				}catch(Exception e){}
 			}
 			Thread.sleep(1000);
 		}
+		System.err.println("Fin ejecucion");
 	}
-	
+	public static void finalizo(MulticoreEject p){
+		tareas.remove(p);
+		RUNNING--;
+	}
 	
 
 }

@@ -36,6 +36,17 @@ public class PruebaColoreo {
 		g = GrafoGenerator.desdeArchivo(new File("in"), new File("out"));
 		Assert.assertEquals(true, ProbadorColores.test(g));
 	}
+	
+	@Test
+	public void coloreoWPConado() throws IOException {
+		GrafoNDNP g = GrafoGenerator.porcAdyacencia(50, 70);
+		g.colorearWP();
+		GrafoNDNP g1 = g.clone();
+		Assert.assertEquals(true, ProbadorColores.test(g1));
+
+		g = GrafoGenerator.desdeArchivo(new File("in"), new File("out"));
+		Assert.assertEquals(true, ProbadorColores.test(g));
+	}
 
 	@Test
 	public void coloreoMatula() throws IOException {

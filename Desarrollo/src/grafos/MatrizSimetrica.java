@@ -9,6 +9,14 @@ public class MatrizSimetrica {
 		this.mat = new int[((size-1)*size)/2];
 	}
 	
+	protected void setMat(int[] m){
+		this.mat = m;
+	}
+	
+	protected int[] getMat(){
+		return this.mat;
+	}
+	
 	private int getIndex(int x, int y) throws IndexOutOfBoundsException{
 		if(x == y || x>= size ||  y>= size) throw new IndexOutOfBoundsException(x+","+y);
 		if(y > x){

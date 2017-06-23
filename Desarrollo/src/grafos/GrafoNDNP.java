@@ -13,8 +13,19 @@ public class GrafoNDNP extends MatrizSimetrica {
 	public GrafoNDNP(int nodos) {
 		super(nodos);
 		this.colores = new int[nodos];
+		grados = null;
 	}
 
+	
+	public GrafoNDNP clone(){
+		GrafoNDNP g = new GrafoNDNP(getSize());
+		g.setMat(this.getMat());
+		g.colores = this.colores.clone();
+		if(this.grados!=null)
+			g.grados = this.grados.clone();
+		return g;
+	} 
+	
 	public void conectar(int nodo1, int nodo2) {
 		this.set(nodo1, nodo2, 1);
 	}
@@ -25,7 +36,11 @@ public class GrafoNDNP extends MatrizSimetrica {
 
 	public int getGrado(int n) {
 		if(grados == null){
-			setGrados();
+			int c =0;
+			for(int i =0; i<this.getSize();i++)
+				if(n!=i && estaConectado(n, i))
+					c++;
+			return c;
 		}
 		return grados[n];
 	}

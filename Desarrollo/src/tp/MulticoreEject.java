@@ -11,22 +11,22 @@ public class MulticoreEject extends Thread{
 	
 	private String file;
 	private GrafoNDNP g;
-
 	
 	public MulticoreEject(GrafoNDNP g, String name) {
-		this.g = g;
+		this.g = g.clone();
 		this.file = name;
 	}
+	
 	
 	@Override
 	public void run() {
 		System.out.println("Iniciado "+file);
-		Main.RUNNING++;
 		try {
 			ejecutar();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		Main.finalizo(this);
 	}
 	
 	
