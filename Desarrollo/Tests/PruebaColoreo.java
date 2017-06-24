@@ -73,5 +73,14 @@ public class PruebaColoreo {
 		Assert.assertEquals(false, ProbadorColores.test(g));
 
 	}
+	
+	
+	@Test
+	public void coloreonPartito() throws IOException {
+		GrafoNDNP g = GrafoGenerator.npartitio(100, 4);
+		System.out.println(g.colorearSecuencialAleatorio());
+
+		Assert.assertEquals(true, ProbadorColores.test(g));
+	}
 
 }

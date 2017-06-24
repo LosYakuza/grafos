@@ -57,4 +57,33 @@ public class PruebaGrafo {
 			Assert.assertEquals(6,g.getGrado(i));
 		}
 	}
+	
+	
+	@Test
+	public void usadoTP() {
+		int n = 1000;
+		int g = 50;
+		
+		GrafoNDNP g1 = GrafoGenerator.regularPorcAdyacencia(n, g);
+		System.out.println("generado");
+		g1.setGrados();
+		int ge = g1.getGrado(0);
+		for(int i=0;i<n;i++){
+			Assert.assertEquals(ge,g1.getGrado(i));
+		}
+		
+	}
+	
+	@Test
+	public void cruz() {
+		int n = 8;
+		int g = 5;
+		
+		GrafoNDNP g1 = GrafoGenerator.regular(n, g);
+		for(int i=0;i<n;i++){
+			Assert.assertEquals(g,g1.getGrado(i));
+		}
+		
+	}
+	
 }
