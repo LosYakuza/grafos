@@ -15,8 +15,6 @@ public class PruebaGrafo {
 	public void test() throws IOException {
 		GrafoGenerator.probArista(4, 70);
 		GrafoNDNP g = GrafoGenerator.porcAdyacencia(10, 50);
-		g.aArchivo(new File("50por"));
-		
 	}
 	
 	@Test
@@ -25,8 +23,6 @@ public class PruebaGrafo {
 		for(int i=0;i<9;i++){
 			Assert.assertEquals(6,g.getGrado(i));
 		}
-		g.aArchivo(new File("9-6reg"));
-		regularLoad();
 	}
 	
 	@Test
@@ -40,6 +36,7 @@ public class PruebaGrafo {
 	@Test
 	public void npartito() {
 		GrafoNDNP g = GrafoGenerator.npartitio(6, 3);
+		System.out.println(g);
 	}
 	
 	@Test
@@ -51,13 +48,6 @@ public class PruebaGrafo {
 		}
 	}
 	
-	public void regularLoad() throws IOException {
-		GrafoNDNP g = GrafoGenerator.desdeArchivo(new File("9-6reg"));
-		for(int i=0;i<9;i++){
-			Assert.assertEquals(6,g.getGrado(i));
-		}
-	}
-	
 	
 	@Test
 	public void usadoTP() {
@@ -65,7 +55,6 @@ public class PruebaGrafo {
 		int g = 50;
 		
 		GrafoNDNP g1 = GrafoGenerator.regularPorcAdyacencia(n, g);
-		System.out.println("generado");
 		g1.setGrados();
 		int ge = g1.getGrado(0);
 		for(int i=0;i<n;i++){

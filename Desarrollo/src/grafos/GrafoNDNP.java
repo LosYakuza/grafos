@@ -138,11 +138,11 @@ public class GrafoNDNP extends MatrizSimetrica {
 		for (int i = 0; i < this.getSize(); i++) {
 			for (int j = i + 1; j < this.getSize(); j++) {
 				if (estaConectado(i, j)) {
-					s += i + " " + j + "\n";
+					s += (i+1) + "-" + (j+1) + ",";
 				}
 			}
 		}
-		return s;
+		return "http://g.ivank.net/#"+this.getSize()+":"+s.substring(0, s.length()-1);
 
 	}
 
