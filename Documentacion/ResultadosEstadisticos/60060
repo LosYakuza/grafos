@@ -1,9 +1,52 @@
 Secuencial aleatorio 
 	Minimo: 99
-	Corrida: 3823
+	Corrida: 3338
 Matula 
 	Minimo: 100
-	Corrida: 6553
+	Corrida: 260
 Welsh-Powell 
 	Minimo: 88
-	Corrida: 3749
+	Corrida: 239
+Estadisticas Secuencial aleatorio
+99	7
+100	25
+101	45
+102	151
+103	298
+104	531
+105	836
+106	1231
+107	1460
+108	1666
+109	1542
+110	1061
+111	647
+112	313
+113	131
+114	44
+115	11
+116	1
+
+Estadisticas Matula
+100	4
+101	160
+102	97
+103	461
+104	2088
+105	2687
+106	2193
+107	1197
+108	846
+109	207
+110	51
+111	8
+112	1
+
+Estadisticas WP
+88	50
+89	1023
+90	7030
+91	1652
+92	225
+93	20
+
