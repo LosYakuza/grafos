@@ -1,0 +1,45 @@
+Secuencial aleatorio 
+	Minimo: 100
+	Corrida: 53
+Matula 
+	Minimo: 104
+	Corrida: 7
+Welsh-Powell 
+	Minimo: 96
+	Corrida: 256
+Estadisticas Secuencial aleatorio
+100	12
+101	52
+102	139
+103	249
+104	275
+105	165
+106	83
+107	21
+108	3
+109	1
+
+Estadisticas Matula
+112	10
+113	2
+104	13
+105	44
+106	100
+107	230
+108	248
+109	194
+110	115
+111	44
+
+Estadisticas WP
+96	2
+97	19
+98	72
+99	229
+100	290
+101	235
+102	113
+103	31
+104	8
+105	1
+
