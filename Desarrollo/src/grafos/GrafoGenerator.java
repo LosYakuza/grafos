@@ -2,6 +2,8 @@ package grafos;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class GrafoGenerator {
@@ -46,6 +48,39 @@ public class GrafoGenerator {
 		}
 		return g;
 
+	}
+	
+	public static GrafoNDNP porcAdyacencia2(int N, double porc) {
+		GrafoNDNP g = new GrafoNDNP(N);
+		LinkedList<AristaRandom> listArista = new LinkedList<AristaRandom>();
+		Random rnd = new Random();
+
+		for(int i = 0; i < N - 1; i++) {
+			for(int j = i + 1; j < N - 1; j++) {
+				listArista.add(new AristaRandom(i, j, rnd.nextInt(100))); //guardo una lista con los nodos + random
+			}
+		}
+
+		listArista.sort(AristaRandom.comparatorSegunRandom());
+		AristaRandom arista;
+		int conexiones = (int) Math.round((((N - 1) * N) / 2) * porc / 100); // calculo las conexiones
+		while (conexiones > 0) {
+			arista = listArista.removeFirst();
+			g.conectar(arista.getNodo1(), arista.getNodo2()); // conecto las de mayor porcentaje
+			conexiones--;
+		}
+		
+		// Conecto los nodos que me queden fuera del grafo con cualquiera
+		for (int n = 0; n < g.getSize(); n++) {  
+			if (g.getGrado(n) == 0) {
+				if (n == 0)
+					g.conectar(n, n + 1);
+				else
+					g.conectar(n, n - 1);
+			}
+		}
+
+		return g;
 	}
 
 	public static GrafoNDNP regular(int N, int grado) {
