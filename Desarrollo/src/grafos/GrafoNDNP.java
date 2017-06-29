@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 
 public class GrafoNDNP extends MatrizSimetrica {
 
@@ -292,5 +293,18 @@ public class GrafoNDNP extends MatrizSimetrica {
 			
 		}
 		return maxC;
+	}
+	
+	public int[] getAdyacentes(int nodo) {
+		int[] result = new int[getGrado(nodo)];
+		
+		int pos = 0;
+		for (int i = 0; i < getSize(); i++) {
+			if (i != nodo && estaConectado(nodo, i)) {
+				result[pos] = i;
+				pos++;
+			}
+		}
+		return result;
 	}
 }
